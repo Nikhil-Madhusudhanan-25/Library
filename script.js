@@ -20,10 +20,16 @@ myLibrary[0]=theHobbit;
 myLibrary[1]=hitch;
 myLibrary[2]=rescue;
 console.log(myLibrary);
-function bookAdd(){
-    /* let book= prompt("Enter the following: Name of the book \n Name of Writer \n Number of Pages \n Whether you have read this book(True/False)");
-    book.split(" ");
-    console.log(book); */
+function bookAdd(event){
+        event.preventDefault();
+        let book=new Book();
+        let inputs=document.getElementsByTagName("input");
+        book.title= inputs[0].value;
+        book.author=inputs[1].value;
+        book.pages=inputs[2].value;
+        book.read=Boolean(inputs[3].value);
+        myLibrary.push(book);
+        document.getElementById("book-add-form").reset();
 }
 function bookDisplay(){
     let bookDisplay= document.getElementsByClassName("book-display");
@@ -52,7 +58,7 @@ document.getElementById("hide-button").addEventListener("click",()=>{
     document.getElementById("book-add-form").style.display="none";
 });
 
-document.getElementById("add-button").addEventListener("click",(event)=>{
+/* document.getElementById("add-button").addEventListener("click",(event)=>{
     event.preventDefault();
     let book=new Book();
     let inputs=document.getElementsByTagName("input");
@@ -62,4 +68,5 @@ document.getElementById("add-button").addEventListener("click",(event)=>{
     book.read=Boolean(inputs[3].value);
     myLibrary.push(book);
     document.getElementById("book-add-form").reset();
-})
+}) */
+document.getElementById("add-button").addEventListener("click",bookAdd);
