@@ -53,3 +53,13 @@ document.getElementById("add-new-button").addEventListener("click",()=>{
         document.getElementById("book-add-form").style.display="none";
 });
 
+document.getElementById("add-button").addEventListener("click",(event)=>{
+    event.preventDefault();
+    let book=new Book();
+    let inputs=document.getElementsByTagName("input");
+    book.title= inputs[0].value;
+    book.author=inputs[1].value;
+    book.pages=inputs[2].value;
+    book.read=Boolean(inputs[3].value);
+    myLibrary.push(book);
+})
