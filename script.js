@@ -45,3 +45,11 @@ function bookDisplay(){
     }
     
 }
+document.getElementById("book-add-form").style.display="none"
+document.getElementById("add-new-button").addEventListener("click",()=>{
+    console.log(document.getElementById("book-add-form").style.display);
+    if(document.getElementById("book-add-form").style.display=="none")
+        document.getElementById("book-add-form").style.display="block";
+    else
+        document.getElementById("book-add-form").style.display="none";
+});
