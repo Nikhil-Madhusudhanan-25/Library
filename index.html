@@ -13,21 +13,21 @@
     <form id="book-add-form">
         <div class="input-row">
             <label for="title">Book Title: </label>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" required>
         </div>
         <div class="input-row">
             <label for="author">Name of Author: </label>
-            <input type="text" name="author" id="author">
+            <input type="text" name="author" id="author" required>
         </div>
         <div class="input-row">
             <label for="pages">Number of pages: </label>
-            <input type="number" name="pages" id="pages" min="1">
+            <input type="number" name="pages" id="pages" min="1" required>
         </div>
         <div class="input-row">
             <label for="read">Have you already read this book? Enter True/False:</label>
-            <input type="text" name="read" id="read">
+            <input type="text" name="read" id="read" required pattern="[Tt]rue|[Ff]alse">
         </div>
-        <button type="button" id="add-button">Add</button>
+        <button type="submit" id="add-button">Add</button>
     </form>
     <script src="script.js"></script>
 </body>
