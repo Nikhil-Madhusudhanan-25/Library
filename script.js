@@ -7,10 +7,6 @@ function Book(title,author,pages,read){
         return `${title} by ${author}, ${pages}, read status: ${read}`;
     }
 }
-/* Book.prototype.info=function(){
-    console.log(this);
-    return `${this.title} by ${this.author}, ${this.pages}, read status: ${this.read}`;
-}; */
 let theHobbit=new Book('The Hobbit', 'J.R.R. Tolkein',295, false);
 let hitch= new Book("The Hitchiker's Guide to the Galaxy", 'Douglas Adams', 216, true);
 let rescue= new Book("The Rescue","Nicholas Sparks", 339, true);
@@ -30,10 +26,29 @@ function bookAdd(event){
         book.read=Boolean(inputs[3].value);
         myLibrary.push(book);
         document.getElementById("book-add-form").reset();
+          if(bookDisplayDiv.childNodes[1]==emptyLibraryDiv)
+            {
+                emptyLibraryDiv.style.display="none";
+            }  
+            if(document.getElementById("book-display-button").style.display="none"){
+                hideButton.style.display="none";
+                document.getElementById("book-display-button").style.display="block";
+            }
+            bookAddedMessageDiv.style.display="block";
+            document.getElementsByTagName("form")[0].appendChild(bookAddedMessageDiv);
 }
+let bookDisplayDiv= document.getElementById("book-display");
+let emptyLibraryDiv=document.createElement("div");
+let hideButton= document.createElement("button");
+hideButton.textContent="Hide Books";
+let bookAddedMessageDiv=document.createElement("div");
+bookAddedMessageDiv.textContent="Book Added to Library!";
 function bookDisplay(){
-    let bookDisplay= document.getElementsByClassName("book-display");
-    console.log(bookDisplay);
+    document.getElementById("book-display-button").style.display="none";
+    let bookDisplayDiv= document.getElementById("book-display");
+    console.log(bookDisplayDiv);
+    /* let hideButton= document.createElement("button");
+    hideButton.textContent="Hide Books"; */
     for(book of myLibrary){
         let card=document.createElement("div");
         card.className="card";
@@ -47,26 +62,46 @@ function bookDisplay(){
             console.log(key);}
         }
         console.log(card);
-        bookDisplay[0].appendChild(card);
+        let bookRemoveButton= document.createElement("button");
+        bookRemoveButton.textContent="Remove Book from Library";
+        card.appendChild(bookRemoveButton);
+        bookRemoveButton.addEventListener("click",()=>{
+            for(book of myLibrary)
+                if(book.title==card.getElementsByTagName("p")[0].textContent)   
+                    myLibrary.splice(myLibrary.indexOf(book),1)
+                card.parentElement.removeChild(card);
+                if(bookDisplayDiv.childNodes[0]==hideButton){
+/*                     let emptyLibraryDiv=document.createElement("div"); */ 
+                    emptyLibraryDiv.textContent="The Library is currently empty."
+                    emptyLibraryDiv.style.display="block";
+                    bookDisplayDiv.appendChild(emptyLibraryDiv);
+                }
+        }); 
+        bookDisplayDiv.appendChild(card);
     }
-    
+    console.log(bookDisplayDiv.childNodes[0]);
+
+    if(document.getElementById("book-display-button").style.display="none"){
+            bookDisplayDiv.appendChild(hideButton);
+            hideButton.style.display="block";
+        }
+    hideButton.addEventListener("click",()=>{
+        bookDisplayDiv.textContent="";
+        document.getElementById("book-display-button").style.display="block";
+    });
+    if(bookDisplayDiv.childNodes[0]==hideButton){
+        let emptyLibraryDiv=document.createElement("div");
+        emptyLibraryDiv.textContent="The Library is currently empty."
+        bookDisplayDiv.appendChild(emptyLibraryDiv);
+    }
 }
 document.getElementById("add-new-button").addEventListener("click",()=>{
         document.getElementById("book-add-form").style.display="block";
 });
 document.getElementById("hide-button").addEventListener("click",()=>{
     document.getElementById("book-add-form").style.display="none";
+    bookAddedMessageDiv.style.display="none";
 });
-
-/* document.getElementById("add-button").addEventListener("click",(event)=>{
-    event.preventDefault();
-    let book=new Book();
-    let inputs=document.getElementsByTagName("input");
-    book.title= inputs[0].value;
-    book.author=inputs[1].value;
-    book.pages=inputs[2].value;
-    book.read=Boolean(inputs[3].value);
-    myLibrary.push(book);
-    document.getElementById("book-add-form").reset();
-}) */
-document.getElementById("add-button").addEventListener("click",bookAdd);
+/* document.getElementById("add-button").addEventListener("click",bookAdd); */
+document.getElementsByTagName("form")[0].addEventListener("submit", bookAdd);
+document.getElementById("book-display-button").addEventListener("click",bookDisplay);
