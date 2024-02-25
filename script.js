@@ -46,11 +46,10 @@ function bookDisplay(){
     
 }
 document.getElementById("add-new-button").addEventListener("click",()=>{
-    console.log(document.getElementById("book-add-form").style.display);
-    if(document.getElementById("book-add-form").style.display==""||document.getElementById("book-add-form").style.display=="none")
         document.getElementById("book-add-form").style.display="block";
-    else
-        document.getElementById("book-add-form").style.display="none";
+});
+document.getElementById("hide-button").addEventListener("click",()=>{
+    document.getElementById("book-add-form").style.display="none";
 });
 
 document.getElementById("add-button").addEventListener("click",(event)=>{
@@ -62,4 +61,5 @@ document.getElementById("add-button").addEventListener("click",(event)=>{
     book.pages=inputs[2].value;
     book.read=Boolean(inputs[3].value);
     myLibrary.push(book);
+    document.getElementById("book-add-form").reset();
 })
