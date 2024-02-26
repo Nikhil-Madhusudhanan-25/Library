@@ -61,6 +61,9 @@ function bookDisplay(){
             card.appendChild(p);
             console.log(key);}
         }
+         let readStatusButton= document.createElement("button"); 
+        readStatusButton.textContent="Change read status";
+        card.appendChild(readStatusButton);
         console.log(card);
         let bookRemoveButton= document.createElement("button");
         bookRemoveButton.textContent="Remove Book from Library";
