@@ -23,7 +23,11 @@ function bookAdd(event){
         book.title= inputs[0].value;
         book.author=inputs[1].value;
         book.pages=inputs[2].value;
-        book.read=Boolean(inputs[3].value);
+        /* book.read=Boolean(inputs[3].value); */
+        if(inputs[3].value=="true"||inputs[3].value=="True")
+            book.read=true;
+        else
+            book.read=false;
         myLibrary.push(book);
         document.getElementById("book-add-form").reset();
           if(bookDisplayDiv.childNodes[1]==emptyLibraryDiv)
