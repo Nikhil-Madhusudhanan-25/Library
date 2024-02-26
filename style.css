@@ -1,14 +1,13 @@
 body{
     height: 100vh;
     display: grid;
-    grid-template-columns: 0.5fr 1fr;
+    grid-template-columns: 0.3fr 1fr;
     margin:0px;
     column-gap: 5px;
-    /* padding:8px; */
 }
-/* form,aside{
+form,aside{
     display: none;
-} */
+}
 
 input{
     appearance: none;
@@ -26,12 +25,10 @@ form{
 .input-row{
     margin-bottom: 10px;
     display: grid;
-    /* grid-auto-flow: column; */
     row-gap: 5px;
 }
 input:focus:invalid{
     outline: 1px solid red;
-    /* border: 1px solid red; */
 }
 input:focus{
     outline: none;
@@ -41,4 +38,12 @@ main{
 }
 .card{
     background-color: rgb(240, 239, 239);
+}
+#book-display{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 5px;
+}
+button{
+    margin-bottom:5px;
 }

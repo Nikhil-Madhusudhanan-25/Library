@@ -41,6 +41,7 @@ function bookAdd(event){
             document.getElementsByTagName("form")[0].appendChild(bookAddedMessageDiv);
 }
 let bookDisplayDiv= document.getElementById("book-display");
+let buttonContainerDiv=document.getElementById("button-container");
 let emptyLibraryDiv=document.createElement("div");
 let hideButton= document.createElement("button");
 hideButton.textContent="Hide Books";
@@ -51,19 +52,30 @@ function bookDisplay(){
     let bookDisplayDiv= document.getElementById("book-display");
     bookDisplayDiv.textContent="";
     if(document.getElementById("book-display-button").style.display="none"){
-        bookDisplayDiv.appendChild(hideButton);
+        /* bookDisplayDiv.appendChild(hideButton); */
+        buttonContainerDiv.appendChild(hideButton);
         hideButton.style.display="block";
     }
     /* let hideButton= document.createElement("button");
     hideButton.textContent="Hide Books"; */
     for(book of myLibrary){
-        let card=document.createElement("div");
+        let card=document.createElement("span");
         card.className="card";
         
         for(key in book){
             if(book[key]!=book.info){
             let p=document.createElement("p");
-            p.textContent=book[key];
+            switch(key){
+                case "title": p.textContent="Title: ";
+                    break;
+                case "author":p.textContent="Author: ";
+                    break;
+                case "pages":p.textContent="Pages: ";
+                    break;
+                case "read":p.textContent="Read: ";
+                    break;
+            }
+            p.textContent+=book[key];
             card.appendChild(p);}
         }
          let readStatusButton= document.createElement("button"); 
@@ -96,6 +108,7 @@ function bookDisplay(){
     hideButton.addEventListener("click",()=>{
         bookDisplayDiv.textContent="";
         document.getElementById("book-display-button").style.display="block";
+        hideButton.style.display="none";
     });
     if(myLibrary.length==0/* bookDisplayDiv.childNodes[0]==hideButton */){
         let emptyLibraryDiv=document.createElement("div");
@@ -106,9 +119,11 @@ function bookDisplay(){
     readStatusButtonList.forEach((button)=>{
         button.addEventListener("click",()=>{
             for(book of myLibrary){
-                if(button.parentElement.childNodes[0].textContent==book.title){
+                console.log(button.parentElement.childNodes[0].textContent.split(":")[1].trim());
+                console.log(book.title);
+                if(button.parentElement.childNodes[0].textContent.split(":")[1].trim()==book.title){
                     console.log("if is true");
-                    if(button.parentElement.childNodes[3].textContent=="true")
+                    if(button.parentElement.childNodes[3].textContent.split(":")[1].trim()=="true")
                         book.read=false;
                     else
                         book.read=true;    
@@ -119,17 +134,21 @@ function bookDisplay(){
         })
     })
 }
-
+document.getElementsByTagName("main")[0].style.gridColumn="1/-1"; 
 document.getElementById("add-new-button").addEventListener("click",()=>{
         document.getElementById("book-add-form").style.display="block"; 
         document.getElementsByTagName("aside")[0].style.display="block";
         document.getElementById("add-new-button").style.display="none";
+        document.getElementsByTagName("main")[0].style.gridColumn="2"; 
 });
 document.getElementById("form-hide-button").addEventListener("click",()=>{
     /* document.getElementById("book-add-form").style.display="none"; */
     document.getElementsByTagName("aside")[0].style.display="none";
+    /* document.getElementsByTagName("aside")[0].style.width="0px"; */
     bookAddedMessageDiv.style.display="none";
     document.getElementById("add-new-button").style.display="block";
+     /* /* if( document.getElementsByTagName("aside")[0].style.display=="none")/* */
+    document.getElementsByTagName("main")[0].style.gridColumn="1/-1"; 
 });
 /* document.getElementById("add-button").addEventListener("click",bookAdd); */
 document.getElementsByTagName("form")[0].addEventListener("submit", bookAdd);
