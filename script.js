@@ -51,6 +51,7 @@ function bookDisplay(){
     document.getElementById("book-display-button").style.display="none";
     let bookDisplayDiv= document.getElementById("book-display");
     console.log(bookDisplayDiv);
+    bookDisplayDiv.textContent="";
     /* let hideButton= document.createElement("button");
     hideButton.textContent="Hide Books"; */
     for(book of myLibrary){
