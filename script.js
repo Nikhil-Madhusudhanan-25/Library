@@ -63,6 +63,7 @@ function bookDisplay(){
         }
          let readStatusButton= document.createElement("button"); 
         readStatusButton.textContent="Change read status";
+        readStatusButton.setAttribute("class","read-status-toggle-button");
         card.appendChild(readStatusButton);
         console.log(card);
         let bookRemoveButton= document.createElement("button");
@@ -97,7 +98,25 @@ function bookDisplay(){
         emptyLibraryDiv.textContent="The Library is currently empty."
         bookDisplayDiv.appendChild(emptyLibraryDiv);
     }
+    let readStatusButtonList=document.querySelectorAll(".read-status-toggle-button");
+    readStatusButtonList.forEach((button)=>{
+        button.addEventListener("click",()=>{
+            for(book of myLibrary){
+                console.log(book.title);
+                if(button.parentElement.childNodes[0].textContent==book.title){
+                    console.log("if is true");
+                    if(button.parentElement.childNodes[3].textContent=="true")
+                        book.read=false;
+                    else
+                        book.read=true;    
+                }
+            }
+            bookDisplayDiv.textContent="";
+            bookDisplay(); 
+        })
+    })
 }
+
 document.getElementById("add-new-button").addEventListener("click",()=>{
         document.getElementById("book-add-form").style.display="block";
 });
