@@ -86,10 +86,11 @@ function bookDisplay(){
         bookRemoveButton.textContent="Remove Book from Library";
         card.appendChild(bookRemoveButton);
         bookRemoveButton.addEventListener("click",()=>{
-            for(book of myLibrary)
-                if(book.title==card.getElementsByTagName("p")[0].textContent)   
+            for(book of myLibrary){
+                if(book.title==card.getElementsByTagName("p")[0].textContent.split(":")[1].trim())  { 
                     myLibrary.splice(myLibrary.indexOf(book),1)
-                card.parentElement.removeChild(card);
+                    card.parentElement.removeChild(card);
+                }
                 if(myLibrary.length==0)/* bookDisplayDiv.childNodes[1]==undefined *//* bookDisplayDiv.childNodes[0]==hideButton */{
 /*                     let emptyLibraryDiv=document.createElement("div"); */ 
                     console.log(myLibrary.length);
@@ -97,6 +98,7 @@ function bookDisplay(){
                     emptyLibraryDiv.style.display="block";
                     bookDisplayDiv.appendChild(emptyLibraryDiv);
                 }
+            }
         }); 
         bookDisplayDiv.appendChild(card);
     }
