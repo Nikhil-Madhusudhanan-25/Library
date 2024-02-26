@@ -1,7 +1,10 @@
 body{
     height: 100vh;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
 }
-form{
+form,aside{
     display: none;
 }
+
 /* input{appearance: none;} */
