@@ -125,11 +125,13 @@ function bookDisplay(){
 document.getElementById("add-new-button").addEventListener("click",()=>{
         document.getElementById("book-add-form").style.display="block"; 
         document.getElementsByTagName("aside")[0].style.display="block";
+        document.getElementById("add-new-button").style.display="none";
 });
 document.getElementById("form-hide-button").addEventListener("click",()=>{
     /* document.getElementById("book-add-form").style.display="none"; */
     document.getElementsByTagName("aside")[0].style.display="none";
     bookAddedMessageDiv.style.display="none";
+    document.getElementById("add-new-button").style.display="block";
 });
 /* document.getElementById("add-button").addEventListener("click",bookAdd); */
 document.getElementsByTagName("form")[0].addEventListener("submit", bookAdd);
