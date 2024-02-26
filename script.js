@@ -10,12 +10,10 @@ function Book(title,author,pages,read){
 let theHobbit=new Book('The Hobbit', 'J.R.R. Tolkein',295, false);
 let hitch= new Book("The Hitchiker's Guide to the Galaxy", 'Douglas Adams', 216, true);
 let rescue= new Book("The Rescue","Nicholas Sparks", 339, true);
-console.log(theHobbit.info());
 const myLibrary=[];
 myLibrary[0]=theHobbit;
 myLibrary[1]=hitch;
 myLibrary[2]=rescue;
-console.log(myLibrary);
 function bookAdd(event){
         event.preventDefault();
         let book=new Book();
@@ -37,6 +35,7 @@ function bookAdd(event){
             if(document.getElementById("book-display-button").style.display="none"){
                 hideButton.style.display="none";
                 document.getElementById("book-display-button").style.display="block";
+                emptyLibraryDiv.style.display="none";
             }
             bookAddedMessageDiv.style.display="block";
             document.getElementsByTagName("form")[0].appendChild(bookAddedMessageDiv);
@@ -50,27 +49,27 @@ bookAddedMessageDiv.textContent="Book Added to Library!";
 function bookDisplay(){
     document.getElementById("book-display-button").style.display="none";
     let bookDisplayDiv= document.getElementById("book-display");
-    console.log(bookDisplayDiv);
     bookDisplayDiv.textContent="";
+    if(document.getElementById("book-display-button").style.display="none"){
+        bookDisplayDiv.appendChild(hideButton);
+        hideButton.style.display="block";
+    }
     /* let hideButton= document.createElement("button");
     hideButton.textContent="Hide Books"; */
     for(book of myLibrary){
         let card=document.createElement("div");
         card.className="card";
         
-        console.log(book);
         for(key in book){
             if(book[key]!=book.info){
             let p=document.createElement("p");
             p.textContent=book[key];
-            card.appendChild(p);
-            console.log(key);}
+            card.appendChild(p);}
         }
          let readStatusButton= document.createElement("button"); 
         readStatusButton.textContent="Change read status";
         readStatusButton.setAttribute("class","read-status-toggle-button");
         card.appendChild(readStatusButton);
-        console.log(card);
         let bookRemoveButton= document.createElement("button");
         bookRemoveButton.textContent="Remove Book from Library";
         card.appendChild(bookRemoveButton);
@@ -79,8 +78,9 @@ function bookDisplay(){
                 if(book.title==card.getElementsByTagName("p")[0].textContent)   
                     myLibrary.splice(myLibrary.indexOf(book),1)
                 card.parentElement.removeChild(card);
-                if(bookDisplayDiv.childNodes[0]==hideButton){
+                if(myLibrary.length==0)/* bookDisplayDiv.childNodes[1]==undefined *//* bookDisplayDiv.childNodes[0]==hideButton */{
 /*                     let emptyLibraryDiv=document.createElement("div"); */ 
+                    console.log(myLibrary.length);
                     emptyLibraryDiv.textContent="The Library is currently empty."
                     emptyLibraryDiv.style.display="block";
                     bookDisplayDiv.appendChild(emptyLibraryDiv);
@@ -88,17 +88,16 @@ function bookDisplay(){
         }); 
         bookDisplayDiv.appendChild(card);
     }
-    console.log(bookDisplayDiv.childNodes[0]);
 
-    if(document.getElementById("book-display-button").style.display="none"){
+/*     if(document.getElementById("book-display-button").style.display="none"){
             bookDisplayDiv.appendChild(hideButton);
             hideButton.style.display="block";
-        }
+        } */
     hideButton.addEventListener("click",()=>{
         bookDisplayDiv.textContent="";
         document.getElementById("book-display-button").style.display="block";
     });
-    if(bookDisplayDiv.childNodes[0]==hideButton){
+    if(myLibrary.length==0/* bookDisplayDiv.childNodes[0]==hideButton */){
         let emptyLibraryDiv=document.createElement("div");
         emptyLibraryDiv.textContent="The Library is currently empty."
         bookDisplayDiv.appendChild(emptyLibraryDiv);
@@ -107,7 +106,6 @@ function bookDisplay(){
     readStatusButtonList.forEach((button)=>{
         button.addEventListener("click",()=>{
             for(book of myLibrary){
-                console.log(book.title);
                 if(button.parentElement.childNodes[0].textContent==book.title){
                     console.log("if is true");
                     if(button.parentElement.childNodes[3].textContent=="true")

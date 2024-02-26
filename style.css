@@ -2,9 +2,43 @@ body{
     height: 100vh;
     display: grid;
     grid-template-columns: 0.5fr 1fr;
+    margin:0px;
+    column-gap: 5px;
+    /* padding:8px; */
 }
-form,aside{
+/* form,aside{
     display: none;
-}
+} */
 
-/* input{appearance: none;} */
+input{
+    appearance: none;
+    border:1px solid grey;
+    width:250px;
+} 
+aside{
+    background-color: rgb(10, 170, 117);
+    padding: 5px 5px 0px 5px;
+}
+form{
+    padding: 5px 0px 0px 5px;
+    background-color: rgb(19, 160, 160);
+}
+.input-row{
+    margin-bottom: 10px;
+    display: grid;
+    /* grid-auto-flow: column; */
+    row-gap: 5px;
+}
+input:focus:invalid{
+    outline: 1px solid red;
+    /* border: 1px solid red; */
+}
+input:focus{
+    outline: none;
+}
+main{
+    padding: 5px 0px 0px 5px;
+}
+.card{
+    background-color: rgb(240, 239, 239);
+}
